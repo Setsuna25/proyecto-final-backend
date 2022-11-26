@@ -5,28 +5,28 @@ const UsuarioSchema = Schema({
 
     nombre: {
         type: String,
-        required: true
+        required: [true, 'El nombre es obligatorio']
     },
     email: {
         type: String,
-        required: true,
+        required: [true, 'El correo es obligatorio'],
         unique: true
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'La contraseña es obligatoria']
     },
-    online: {
+    estado: {
         type: Boolean,
-        default: false
+        default: true
     },
 });
 
 
 UsuarioSchema.method('toJSON', function(){
-    const {__v, _id, password, ...object} = this.toObject();
-    object.uid = _id;
-    return object;
+    const {__v, _id, password, ...usuario } = this.toObject();
+    usuario.uid = _id;
+    return usuario;
 })
 
 module.exports = model('Usuario', UsuarioSchema);
